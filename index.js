@@ -24,47 +24,50 @@ rl.question("Which part do you want to run? (1 or 2): ", (part) => {
 
     rl.on("close", () => {
 
-        const [baseCost, packageCount] = lines[0].split(" ").map(Number);
+        try{
+            const [baseCost, packageCount] = lines[0].split(" ").map(Number);
 
-        // Part 1
-        if (selectedPart === "1") {
-            for (let i = 1; i <= packageCount; i++) {
-                if (!lines[i]) break;
-                const [id, weight, distance, offerCode] = lines[i].split(" ");
-                const result = calculateTotalCost(baseCost, Number(weight), Number(distance), offerCode);
-                console.log(`${id} ${result.discount} ${result.finalCost}`);
-
-            }
-        }
-
-        // Part 2
-        else if (selectedPart === "2") {
-            const packages = [];
-            for (let i = 1; i <= packageCount; i++) {
-                if (!lines[i]) break;
-                const [id, weight, distance, offerCode] = lines[i].split(" ");
-                const result = calculateTotalCost(baseCost, Number(weight), Number(distance), offerCode);
-                packages.push({
-                    id,
-                    weight: Number(weight),
-                    distance: Number(distance),
-                    discount: result.discount,
-                    finalCost: result.finalCost,
-                    offer: offerCode,
-                    inputIndex: i - 1
-                });
+            // Part 1
+            if (selectedPart === "1") {
+                for (let i = 1; i <= packageCount; i++) {
+                    if (!lines[i]) break;
+                    const [id, weight, distance, offerCode] = lines[i].split(" ");
+                    const result = calculateTotalCost(baseCost, Number(weight), Number(distance), offerCode);
+                    console.log(`${id} ${result.discount} ${result.finalCost}`);
+                }
             }
 
-            const [vehicleCount, maxSpeed, maxLoad] = lines[lines.length - 1].split(" ").map(Number);
-            const scheduledPackages = scheduleDeliveries(packages, vehicleCount, maxSpeed, maxLoad);
+            // Part 2
+            else if (selectedPart === "2") {
+                    const packages = [];
+                    for (let i = 1; i <= packageCount; i++) {
+                        if (!lines[i]) break;
+                        const [id, weight, distance, offerCode] = lines[i].split(" ");
+                        const result = calculateTotalCost(baseCost, Number(weight), Number(distance), offerCode);
+                        packages.push({
+                            id,
+                            weight: Number(weight),
+                            distance: Number(distance),
+                            discount: result.discount,
+                            finalCost: result.finalCost,
+                            offer: offerCode,
+                            inputIndex: i - 1
+                        });
+                    }
 
-            scheduledPackages.forEach(pkg => {
-                console.log(`${pkg.id} ${pkg.discount} ${pkg.finalCost} ${pkg.deliveryTime}`);
-            });
-        }
+                    const [vehicleCount, maxSpeed, maxLoad] = lines[lines.length - 1].split(" ").map(Number);
+                    const scheduledPackages = scheduleDeliveries(packages, vehicleCount, maxSpeed, maxLoad);
 
-        else {
-            console.log("Invalid selection. Please choose 1 or 2.");
+                    scheduledPackages.forEach(pkg => {
+                        console.log(`${pkg.id} ${pkg.discount} ${pkg.finalCost} ${pkg.deliveryTime}`);
+                    });
+            }
+
+            else {
+                console.log("Invalid selection. Please choose 1 or 2.");
+            }
+        } catch (err){
+            console.log(`ERROR: ${err.message}`);
         }
 
     });
