@@ -94,6 +94,18 @@ PKG2 15 5 OFR008
 PKG3 10 100 OFR003
 ```
 
+<b>Finish the input:</b>
+
+For Mac 
+```bash
+CTRL + D
+```
+
+For Windows
+```bash
+CTRL + Z
+```
+
 <b>Example output:</b>
 ```bash
 PKG1 0 750
@@ -117,6 +129,18 @@ PKG3 175 100 OFR003
 PKG4 110 60 OFR002
 PKG5 155 95 NA
 2 70 200
+```
+
+<b>Finish the input:</b>
+
+For Mac 
+```bash
+CTRL + D
+```
+
+For Windows
+```bash
+CTRL + Z
 ```
 
 <b>Example output:</b>
